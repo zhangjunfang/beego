@@ -1,0 +1,42 @@
+{
+
+    /* **注意**： 使用时必须删掉所有注释!! */
+
+    "settings": {
+        /* 文件存放路径 */
+        "path": "/home/colinz/Music/{author}/{author} - {name}({rate}kb).{suffix}",
+        /* 最小比特率，小于此比特率将不下载 */
+        "min_rate": 256
+    },
+
+    /* IMPORTANT: 没有Cookie信息找不到歌曲链接 */
+    "cookie":"YOUR-COOKIE",
+
+    /* 包含歌曲列表的页面 */
+    /* 歌手 */
+    "artists": [
+        "http://music.baidu.com/artist/{歌手1 ID}",
+        "http://music.baidu.com/artist/{歌手2 ID}"
+    ],
+     /* 专辑 */
+    "album": [
+        "http://music.baidu.com/album/{专辑1 ID}",
+        "http://music.baidu.com/album/{专辑2 ID}"
+    ],
+    /* 榜单 */
+    "top": [
+        "http://music.baidu.com/top/{榜单1 ID}",
+        "http://music.baidu.com/top/{榜单2 ID}"
+    ],
+    /* 标签、分类、风格 */
+    "tag": [
+        "http://music.baidu.com/tag/{分类名称1}",
+        "http://music.baidu.com/tag/{分类名称2}"
+    ],
+    /* 网友歌单 */
+    "songlist": [
+        "http://music.baidu.com/songlist/{歌单1 ID}",
+        "http://music.baidu.com/songlist/{歌单2 ID}"
+    ]
+
+}

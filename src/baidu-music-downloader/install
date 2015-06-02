@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+if [ ! -f install ]; then
+    echo 'install must be run within its container folder.' 1>&2
+    exit 1
+fi
+
+# backup GOPATH
+GOPATH_BACKUP="$GOPATH"
+
+CUR_DIR=`pwd`
+export GOPATH="$CUR_DIR"
+
+# format source code
+gofmt -w src
+# build and install app
+go get github.com/bitly/go-simplejson
+go install git.oschina.net/zhanglubing/baidu-music-downloader
+
+# copy config file
+cp config.json bin
+
+# restore GOPATH
+export GOPATH="$GOPATH_BACKUP"
+
+echo 'Finished!'

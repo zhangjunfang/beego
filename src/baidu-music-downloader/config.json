@@ -1,0 +1,13 @@
+{
+    "settings": {
+        "path": "/home/colinz/Music/{author}/{author} - {name}({rate}kb).{suffix}",
+        "min_rate": 256
+    },
+
+    "cookie":"YOUR-COOKIE",
+
+    "artists": [
+        "http://music.baidu.com/artist/10591",
+        "http://music.baidu.com/artist/2507"
+    ]
+}

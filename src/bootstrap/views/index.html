@@ -1,0 +1,18 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" /> 
+<title>文件管理系统</title>
+<link href="/css/layout.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="container">
+  <div id="header">{{.hi}}</div>
+  <div id="mainContent">
+    <div id="sidebar">This is the sidebar</div>
+    <div id="content">{{i18n .Lang "hi%d" 12}}==={{i18n .Lang .hi}}</div>
+  </div>
+  <div id="footer">{{.bye}}</div>
+</div>
+</body>
+</html>
