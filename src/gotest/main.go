@@ -9,5 +9,6 @@ import (
 func main() {
 	fmt.Println("Hello World!")
 	learn.Test()
+	learn.TestVar()
 	learn.TestRuntime()
 }

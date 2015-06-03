@@ -33,8 +33,15 @@ func Test(){
 func  TestVar(){
     fmt.Println("------------------------------2----------------------------!")
 	d:="fdfdf"
+	//使用语言自带的内置方法
+	fmt.Println(len(d))
 	fmt.Println(d)
-	
+	v:=make([]int, 2,8)
+	for index , v := range v{
+		fmt.Println(index , v )
+	}
+	//基本数据类型之间相互转换
+	fmt.Println(string([]byte(d)))
 }
 
 
@@ -42,7 +49,6 @@ func TestRuntime() {
 	fmt.Println("------------------------------1----------------------------!")
 	fmt.Println("Hello learnner!")
 	//runtime.Gosched
-	fmt.Println(runtime.NumGoroutine())
 	fmt.Println(runtime.GOMAXPROCS(runtime.NumCPU()))
 	runtime.LockOSThread()
 	fmt.Println(runtime.MemProfileRate)
