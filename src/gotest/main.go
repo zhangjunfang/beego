@@ -9,6 +9,7 @@ import (
 func main() {
 	fmt.Println("Hello World!")
 	learn.Test()
+	learn.TestCast()
 	learn.TestVar()
 	learn.TestRuntime()
 }
