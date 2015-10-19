@@ -2,7 +2,8 @@
 package main
 
 import (
-	"fmt"
+//"fmt"
+//"github.com/beego/cloudplatform_base/base"
 )
 
 func main() {
