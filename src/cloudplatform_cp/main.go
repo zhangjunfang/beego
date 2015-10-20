@@ -2,10 +2,24 @@
 package main
 
 import (
-//"fmt"
-//"github.com/beego/cloudplatform_base/base"
+	"bufio"
+	"fmt"
+	base "github.com/cloudplatform_base/base"
+	"net"
 )
 
 func main() {
+	fmt.Println(base.LEFT_BRACKET)
+	listenner, err := net.Listen("tcp", "127.0.0.1:9999")
+	if nil != err {
+		fmt.Printf("服务端获取监听程序出错：%v", err)
+	} else {
+		for {
+			conn, err := listenner.Accept()
+			fmt.Printf("%v , %s", conn, err)
+			bufio.NewReader(conn)
 
+			fmt.Printf("服务端收到： ")
+		}
+	}
 }
