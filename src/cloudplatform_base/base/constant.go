@@ -14,4 +14,7 @@ const (
 	//服务端应答类
 	TYPE_A     string = "$A$"
 	MSG_TYPE_A string = "A"
+	// 心跳
+	TYPE_L2 string = "L2"
+	N1      string = "1"
 )

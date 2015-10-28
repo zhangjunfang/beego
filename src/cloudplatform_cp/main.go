@@ -3,8 +3,8 @@ package main
 
 import (
 	"bufio"
+	base "cloudplatform_base/base"
 	"fmt"
-	base "github.com/cloudplatform_base/base"
 	"net"
 )
 
