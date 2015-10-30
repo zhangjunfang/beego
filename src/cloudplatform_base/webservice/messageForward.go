@@ -1,13 +1,20 @@
 package webservice
 
 import (
+	"bytes"
+	base "cloudplatform_base/base"
+	"cloudplatform_base/util"
 	"crypto/cipher"
 	"crypto/des"
 	"encoding/base64"
+	"encoding/json"
 	"errors"
-	//"github.com/astaxie/beego/cache"
+	"fmt"
+	"github.com/astaxie/beego/cache"
 	_ "github.com/astaxie/beego/cache/redis"
+	"strconv"
 	"strings"
+	"time"
 )
 
 const (
@@ -19,8 +26,14 @@ const (
 	transferMsgEncoded = "UTF-8"
 )
 
-func init() {
+var bm cache.Cache
 
+func init() {
+	var err error
+	bm, err = cache.NewCache("redis", `{"conn":"127.0.0.1:6379"}`)
+	if nil != err {
+		fmt.Println("连接redis数据出错：%V", err)
+	}
 }
 
 type Message struct {
@@ -81,6 +94,11 @@ func (m *Message) MessageForwardYt() (mr MessageResponse, err error) {
 		mr.ReturnValue = "serviceStationSap is null"
 		return
 	}
+	/*
+		解密数据：
+		1.base64 解密
+		2.TripleDES解密
+	*/
 	b, err := Decode64(m.BillNumber)
 	var bb = []byte(transferMsgKey)
 	var block cipher.Block
@@ -92,8 +110,35 @@ func (m *Message) MessageForwardYt() (mr MessageResponse, err error) {
 	origData := make([]byte, len(b))
 	blockMode.CryptBlocks(origData, b)
 	origData = PKCS5UnPadding(origData)
+	/*
+	 存储数据到redis中
+	*/
+	var buffer bytes.Buffer
+	buffer.WriteString(base.LEFT_BRACKET)
+
+	//		msg.append(stationId).append("$"); //服务站id。宇通消息会转发到这个服务站
+	buffer.WriteString(m.ServiceStationSap)
+	buffer.WriteString(base.DOLLAR)
+	buffer.WriteString(strings.Replace(base.Rand().Hex(), "-", "", -1))
+	buffer.WriteString(base.DOLLAR)
+	buffer.WriteString("Y$")
+	buffer.WriteString(strconv.Itoa(time.Now().Second()))
+	buffer.WriteString(base.DOLLAR)
+	stationId, _ := bm.Get(m.ServiceStationSap).(string)
+	buffer.WriteString(stationId)
+	buffer.WriteString(base.DOLLAR)
+	json, _ := json.Marshal([]byte(fmt.Sprint("%v", m)))
+	buffer.WriteString(base64.StdEncoding.EncodeToString(json))
+	buffer.WriteString(base.DOLLAR)
+	buffer.WriteString(util.CheckMsg(buffer.String()))
+	buffer.WriteString(base.RIGHT_BRACKET)
+	bm.Put(m.ServiceStationSap, buffer.String(), -1)
+	/*
+	 宇通接口的响应报文
+	*/
 	return mr, nil
 }
+
 func PKCS5UnPadding(origData []byte) []byte {
 	length := len(origData)
 	// 去掉最后一个字节 unpadding 次

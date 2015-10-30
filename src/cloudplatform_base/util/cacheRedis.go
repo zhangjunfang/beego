@@ -53,6 +53,11 @@ func (s *Student) String() string {
 func CheakMysql() {
 	db, err := sql.Open("mysql", "root:@/restbird")
 	defer db.Close()
+	if err != nil {
+		log.Error(err.Error())
+	}
+	db.SetMaxOpenConns(50)
+	db.SetMaxIdleConns(20)
 	age := 1
 	//rows, err := db.Query("SELECT id, sid,sname,sage FROM tbl_student WHERE id =?", age)
 	rows, err := db.Query("SELECT id, sid,sname,sage FROM tbl_student WHERE 1 =?", age)
