@@ -17,7 +17,6 @@ func main() {
 	beego.SessionName = "jsessionId"
 	beego.SessionProvider = "redis"
 	beego.SessionSavePath = "127.0.0.1:6379"
-	beego.SessionHashKey = "4d%^&*d;lfgjd;fgjd;fgjd'opi[ip[p]]099()#$@"
 	//日志设置
 	beego.SetLevel(0)
 	beego.SetLogFuncCall(true)
